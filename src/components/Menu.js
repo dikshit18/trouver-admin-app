@@ -1,24 +1,42 @@
 import React from "react";
-import { UserOutlined } from "@ant-design/icons";
-import { Menu } from "antd";
-const { SubMenu } = Menu;
+import styled from "styled-components";
+import { Menu, Layout, Breadcrumb } from "antd";
+import "antd/dist/antd.css";
+import SideKick from "./SideKick";
+import UserList from "./UserList";
+import SearchBar from "./SearchBar";
+const { Header, Content, Footer } = Layout;
 const handleClick = () => {};
+
+const HeaderStyle = {
+  backgroundColor: "#fff",
+  width: "100%",
+  top: 0
+};
+
 const MenuComponent = props => {
   return (
-    <Menu
-      onClick={handleClick}
-      // selectedKeys={[this.state.current]}
-      mode="horizontal"
-    >
-      <Menu.Item key="mail" icon={<UserOutlined />}>
-        Staff
-      </Menu.Item>
-      <Menu.Item key="alipay">
-        <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
-          Customer
-        </a>
-      </Menu.Item>
-    </Menu>
+    <Layout style={{ minHeight: "100vh" }}>
+      <SideKick />
+      <Layout className="site-layout">
+        <Header
+          style={{
+            ...HeaderStyle
+          }}
+        />
+        <Content
+          style={{
+            margin: "2rem 1rem",
+            height: "100vh",
+            backgroundColor: "#fff"
+          }}
+        >
+          <UserList />
+          <SearchBar />
+        </Content>
+        <Footer />
+      </Layout>
+    </Layout>
   );
 };
 export default MenuComponent;
