@@ -5,6 +5,7 @@ import "antd/dist/antd.css";
 import SideKick from "./SideKick";
 import UserList from "./UserList";
 import SearchBar from "./SearchBar";
+import UsersTable from "./UsersTable";
 const { Header, Content, Footer } = Layout;
 const handleClick = () => {};
 
@@ -23,7 +24,9 @@ const MenuComponent = props => {
           style={{
             ...HeaderStyle
           }}
-        />
+        >
+          Welcome Admin
+        </Header>
         <Content
           style={{
             margin: "2rem 1rem",
@@ -33,6 +36,7 @@ const MenuComponent = props => {
         >
           <UserList />
           <SearchBar />
+          <UsersTable />
         </Content>
         <Footer />
       </Layout>

@@ -15,6 +15,7 @@ const userList = props => {
       // selectedKeys={[this.state.current]}
       mode="horizontal"
       style={{ marginTop: "1rem" }}
+      selectedKeys={["staff"]}
     >
       <Menu.Item key="staff" icon={<UserOutlined />}>
         Staff Members
