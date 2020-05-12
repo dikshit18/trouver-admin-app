@@ -1,4 +1,6 @@
 import React from "react";
+import { connect } from "react-redux";
+import { login } from "../store/actions/index";
 import Auth from "../components/Auth";
 import styled from "styled-components";
 
@@ -21,8 +23,22 @@ const Layout = styled.div`
 const AuthContainer = props => {
   return (
     <Layout>
-      <Auth />
+      <Auth onSubmit={values => props.onSubmitHandler(values)} />
     </Layout>
   );
 };
-export default AuthContainer;
+
+const mapStateToProps = state => {
+  return {
+    isLogin: state.auth.isLogin
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    onSubmitHandler: ({ username, password }) => {
+      dispatch(login(username, password));
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AuthContainer);

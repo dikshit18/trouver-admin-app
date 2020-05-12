@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "antd/dist/antd.css";
 import styled from "styled-components";
-import { Card, Col, Row, Input, Button } from "antd";
+import { Form, Card, Col, Row, Input, Button } from "antd";
+import Loader from "./Loader";
 
 const cardStyles = {
   width: "95%",
@@ -32,22 +33,56 @@ const Label = styled.p`
   margin-bottom: -0.1rem;
 `;
 
-const InputControls = () => {
+const InputControls = props => {
   return (
     <Controls>
       <Row>
         <Col lg={4} md={4} xs={1} sm={1}></Col>
         <Col lg={16} md={16} xs={22} sm={22}>
-          <Label>Username</Label>
-          <Input style={{ ...inputBoxStyles }} />
-          <Label>Password</Label>
-          <Input.Password
-            visibilityToggle={false}
-            style={{ ...inputBoxStyles }}
-          />
-          <Button type="primary" style={{ ...buttonStyles }} block>
-            Sign in
-          </Button>
+          <Form
+            onFinish={values => {
+              props.onSubmit(values);
+            }}
+          >
+            <Label>Username</Label>
+            <Form.Item
+              name="username"
+              rules={[
+                {
+                  required: true,
+                  type: "email",
+                  message: "Please input a valid email"
+                }
+              ]}
+            >
+              <Input style={{ ...inputBoxStyles }} />
+            </Form.Item>
+            <Label>Password</Label>
+            <Form.Item
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your password"
+                }
+              ]}
+            >
+              <Input.Password
+                visibilityToggle={false}
+                style={{ ...inputBoxStyles }}
+              />
+            </Form.Item>
+            <Form.Item>
+              <Button
+                type="primary"
+                htmlType="submit"
+                style={{ ...buttonStyles }}
+                block
+              >
+                Sign in
+              </Button>
+            </Form.Item>
+          </Form>
         </Col>
         <Col lg={4} md={4} xs={1} sm={1}></Col>
       </Row>
@@ -58,12 +93,17 @@ const InputControls = () => {
 const Auth = props => {
   return (
     <>
+      <Loader />
       <Row>
         <Col lg={6} md={6} xs={0} sm={0}></Col>
         <Col lg={12} md={12} xs={24} sm={24}>
           <Card style={{ ...cardStyles }}>
             <Image src={require(`../static/Trouver-logo.png`)} />
-            <InputControls />
+            <InputControls
+              onSubmit={values => {
+                props.onSubmit(values);
+              }}
+            />
           </Card>
         </Col>
         <Col lg={6} md={6} xs={0} sm={0}></Col>
