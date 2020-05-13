@@ -2,7 +2,8 @@ import * as ACTIONS from "../actions/actionTypes";
 const initialState = {
   isLogin: false,
   forgotPassword: false,
-  error: null
+  error: null,
+  loading: false
 };
 
 export const authReducer = (state = initialState, action) => {

@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { css, keyframes } from "styled-components";
+import { CubeGrid, FoldingCube } from "styled-spinkit";
 const rotate = keyframes`
  0%,80%,100% { box-shadow: 0 2.5em 0 -1.3em; }
   40% {  box-shadow: 0 2.5em 0 0; }
@@ -47,7 +48,7 @@ const LoaderDiv = styled.div`
 const loader = () => {
   return (
     <>
-      <LoaderDiv />
+      <CubeGrid />
     </>
   );
 };
