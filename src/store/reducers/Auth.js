@@ -11,13 +11,17 @@ export const authReducer = (state = initialState, action) => {
     case ACTIONS.LOGIN_SUCCESS:
       return {
         ...state,
-        isLogin: true
+        isLogin: true,
+        loading: false
       };
     case ACTIONS.LOGIN_FAILURE:
       return {
         ...state,
+        loading: false,
         error: action.error
       };
+    case ACTIONS.LOADING_START:
+      return { ...state, loading: true, error: null };
     default:
       return { ...state };
   }

@@ -93,21 +93,24 @@ const InputControls = props => {
 const Auth = props => {
   return (
     <>
-      <Loader />
-      <Row>
-        <Col lg={6} md={6} xs={0} sm={0}></Col>
-        <Col lg={12} md={12} xs={24} sm={24}>
-          <Card style={{ ...cardStyles }}>
-            <Image src={require(`../static/Trouver-logo.png`)} />
-            <InputControls
-              onSubmit={values => {
-                props.onSubmit(values);
-              }}
-            />
-          </Card>
-        </Col>
-        <Col lg={6} md={6} xs={0} sm={0}></Col>
-      </Row>
+      {props.loading ? (
+        <Loader />
+      ) : (
+        <Row>
+          <Col lg={6} md={6} xs={0} sm={0}></Col>
+          <Col lg={12} md={12} xs={24} sm={24}>
+            <Card style={{ ...cardStyles }}>
+              <Image src={require(`../static/Trouver-logo.png`)} />
+              <InputControls
+                onSubmit={values => {
+                  props.onSubmit(values);
+                }}
+              />
+            </Card>
+          </Col>
+          <Col lg={6} md={6} xs={0} sm={0}></Col>
+        </Row>
+      )}
     </>
   );
 };

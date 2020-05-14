@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import styled from "styled-components";
 import { Menu, Layout, Breadcrumb } from "antd";
 import "antd/dist/antd.css";
@@ -16,6 +16,7 @@ const HeaderStyle = {
 };
 
 const MenuComponent = props => {
+  console.log("---", props);
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <SideKick />

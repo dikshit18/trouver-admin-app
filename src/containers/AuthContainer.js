@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { login } from "../store/actions/index";
+import { Redirect } from "react-router-dom";
 import Auth from "../components/Auth";
 import styled from "styled-components";
 
@@ -21,16 +22,23 @@ const Layout = styled.div`
 `;
 
 const AuthContainer = props => {
+  console.log("Inmenu");
+
   return (
     <Layout>
-      <Auth onSubmit={values => props.onSubmitHandler(values)} />
+      <Auth
+        onSubmit={values => props.onSubmitHandler(values)}
+        loading={props.loading}
+      />
+      {props.isLogin && <Redirect to="/landing" />}
     </Layout>
   );
 };
 
 const mapStateToProps = state => {
   return {
-    isLogin: state.auth.isLogin
+    isLogin: state.auth.isLogin,
+    loading: state.auth.loading
   };
 };
 const mapDispatchToProps = dispatch => {

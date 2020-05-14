@@ -4,13 +4,13 @@ import { apiEndpoints } from "../../utils/constants";
 import { setCookie } from "../../utils/cookies";
 import moment from "moment";
 
-export const loginSuccess = data => {
+const loginSuccess = data => {
   return {
     type: ACTIONS.LOGIN_SUCCESS,
     data
   };
 };
-export const loginFailure = error => {
+const loginFailure = error => {
   return {
     type: ACTIONS.LOGIN_FAILURE,
     error
@@ -19,6 +19,7 @@ export const loginFailure = error => {
 
 export const login = (username, password) => {
   return dispatch => {
+    dispatch(loadingStart());
     const payload = {
       email: username,
       password
@@ -44,5 +45,11 @@ export const login = (username, password) => {
         console.log("SignUp failed...", error);
         dispatch(loginFailure(error));
       });
+  };
+};
+
+const loadingStart = () => {
+  return {
+    type: ACTIONS.LOADING_START
   };
 };
