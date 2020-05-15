@@ -16,7 +16,6 @@ const HeaderStyle = {
 };
 
 const MenuComponent = props => {
-  console.log("---", props);
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <SideKick />

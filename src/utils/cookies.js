@@ -12,3 +12,9 @@ export const getCookie = key => {
 export const deleteCookie = key => {
   return Cookies.remove(key);
 };
+
+export const deleteAllCookies = () => {
+  deleteCookie("idToken");
+  deleteCookie("sessionId");
+  deleteCookie("expiry");
+};

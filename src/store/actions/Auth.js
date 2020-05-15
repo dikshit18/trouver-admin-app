@@ -1,13 +1,14 @@
 import * as ACTIONS from "./actionTypes";
 import axios from "../../utils/axios";
 import { apiEndpoints } from "../../utils/constants";
-import { setCookie } from "../../utils/cookies";
+import { setCookie, getCookie, deleteAllCookies } from "../../utils/cookies";
 import moment from "moment";
+import { history } from "../../utils/history";
+import checkSessionValidity from "../../utils/sessionManager";
 
-const loginSuccess = data => {
+const loginSuccess = () => {
   return {
-    type: ACTIONS.LOGIN_SUCCESS,
-    data
+    type: ACTIONS.LOGIN_SUCCESS
   };
 };
 const loginFailure = error => {
@@ -39,7 +40,8 @@ export const login = (username, password) => {
           setCookie("idToken", IdToken);
           setCookie("expiry", expiry);
         }
-        dispatch(loginSuccess(data));
+        dispatch(loginSuccess());
+        history.push("/landing");
       })
       .catch(error => {
         console.log("SignUp failed...", error);
@@ -51,5 +53,43 @@ export const login = (username, password) => {
 const loadingStart = () => {
   return {
     type: ACTIONS.LOADING_START
+  };
+};
+
+export const logout = () => {
+  return {
+    type: ACTIONS.LOGOUT
+  };
+};
+
+export const sessionValidityCheck = () => {
+  return dispatch => {
+    dispatch(loadingStart());
+    const areTokensPresent = checkSessionValidity();
+    console.log("Hllo", areTokensPresent);
+    if (!areTokensPresent) {
+      deleteAllCookies();
+      dispatch(logout());
+    } else {
+      const config = {
+        headers: { Authorization: getCookie("idToken") }
+      };
+
+      axios
+        .get(
+          `apiEndpoints.sessionValidity/sessionId=${getCookie("sessionId")}`,
+          config
+        )
+        .then(data => {
+          console.log("DATA...", data);
+          if (data.data && data.data.statusCode === 200) {
+            dispatch(loginSuccess());
+            history.push("/landing");
+          } else {
+            deleteAllCookies();
+            dispatch(logout());
+          }
+        });
+    }
   };
 };

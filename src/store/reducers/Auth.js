@@ -1,6 +1,6 @@
 import * as ACTIONS from "../actions/actionTypes";
 const initialState = {
-  isLogin: false,
+  isLogin: /*checkSessionValidity() */ false,
   forgotPassword: false,
   error: null,
   loading: false
@@ -22,6 +22,8 @@ export const authReducer = (state = initialState, action) => {
       };
     case ACTIONS.LOADING_START:
       return { ...state, loading: true, error: null };
+    case ACTIONS.LOGOUT:
+      return initialState;
     default:
       return { ...state };
   }

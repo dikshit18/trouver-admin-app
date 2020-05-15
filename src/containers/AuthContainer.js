@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { login } from "../store/actions/index";
+import { login, sessionValidityCheck } from "../store/actions/index";
 import { Redirect } from "react-router-dom";
 import Auth from "../components/Auth";
 import styled from "styled-components";
@@ -22,15 +22,16 @@ const Layout = styled.div`
 `;
 
 const AuthContainer = props => {
-  console.log("Inmenu");
-
+  const { onSessionValidityCheck } = props;
+  useEffect(() => {
+    onSessionValidityCheck();
+  }, [onSessionValidityCheck]);
   return (
     <Layout>
       <Auth
         onSubmit={values => props.onSubmitHandler(values)}
         loading={props.loading}
       />
-      {props.isLogin && <Redirect to="/landing" />}
     </Layout>
   );
 };
@@ -45,6 +46,9 @@ const mapDispatchToProps = dispatch => {
   return {
     onSubmitHandler: ({ username, password }) => {
       dispatch(login(username, password));
+    },
+    onSessionValidityCheck: () => {
+      dispatch(sessionValidityCheck());
     }
   };
 };
