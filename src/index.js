@@ -9,11 +9,13 @@ import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
+import { menuReducer } from "./store/reducers/Menu";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const loggerMiddleware = createLogger();
 const rootReducer = combineReducers({
-  auth: authReducer
+  auth: authReducer,
+  menu: menuReducer
 });
 
 const store = createStore(

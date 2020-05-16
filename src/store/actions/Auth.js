@@ -28,7 +28,6 @@ export const login = (username, password) => {
     axios
       .post(apiEndpoints.login, payload)
       .then(data => {
-        console.log("SignIn Successful...", data);
         if (data.data.statusCode === 200) {
           const { sessionId } = data.data;
           const { IdToken } = data.data.tokens;
@@ -44,7 +43,6 @@ export const login = (username, password) => {
         history.push("/landing");
       })
       .catch(error => {
-        console.log("SignUp failed...", error);
         dispatch(loginFailure(error));
       });
   };
@@ -64,10 +62,8 @@ export const logout = () => {
 
 export const sessionValidityCheck = () => {
   return dispatch => {
-    console.log("I am checking session");
     dispatch(loadingStart());
     const areTokensPresent = checkSessionValidity();
-    console.log("Hllo", areTokensPresent);
     if (!areTokensPresent) {
       deleteAllCookies();
       dispatch(logout());
@@ -91,7 +87,6 @@ export const sessionValidityCheck = () => {
           }
         })
         .catch(error => {
-          console.log("Error is", error);
           deleteAllCookies();
           dispatch(logout());
         });

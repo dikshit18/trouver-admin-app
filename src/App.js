@@ -4,7 +4,7 @@ import "./App.css";
 import { Route, Router } from "react-router-dom";
 import AuthContainer from "./containers/AuthContainer";
 import ProtectedRoute from "./hoc/ProtectedRoute";
-import MenuComponent from "./components/Menu";
+import MenuContainer from "./containers/MenuContainer";
 import { history } from "./utils/history";
 
 function App(props) {
@@ -12,10 +12,10 @@ function App(props) {
     <div className="App">
       <Router history={history}>
         <Route exact path="/" component={AuthContainer} />
-        <Route exact path="/loading" component={MenuComponent} />
+        <Route exact path="/loading" component={MenuContainer} />
         <ProtectedRoute
           path="/landing"
-          component={MenuComponent}
+          component={MenuContainer}
           isLogin={props.isLogin}
         />
       </Router>

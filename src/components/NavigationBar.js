@@ -2,9 +2,6 @@ import React from "react";
 import { Layout } from "antd";
 import "antd/dist/antd.css";
 import SideKick from "./SideKick";
-import UserList from "./UserList";
-import SearchBar from "./SearchBar";
-import UsersTable from "./UsersTable";
 import Loading from "./Loader";
 const { Header, Content, Footer } = Layout;
 
@@ -14,7 +11,7 @@ const HeaderStyle = {
   top: 0
 };
 
-const MenuComponent = props => {
+const navigationBar = props => {
   const { details, loading } = props;
   console.log("Loading or not", 1, props);
 
@@ -41,9 +38,7 @@ const MenuComponent = props => {
                 backgroundColor: "#fff"
               }}
             >
-              <UserList />
-              <SearchBar />
-              <UsersTable />
+              {props.children}
             </Content>
             <Footer />
           </Layout>
@@ -52,4 +47,4 @@ const MenuComponent = props => {
     </>
   );
 };
-export default MenuComponent;
+export default navigationBar;

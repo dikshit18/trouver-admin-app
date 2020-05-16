@@ -53,9 +53,7 @@ const data = [
   }
 ];
 
-function onChange(pagination, filters, sorter, extra) {
-  console.log("params", pagination, filters, sorter, extra);
-}
+function onChange(pagination, filters, sorter, extra) {}
 const usersTable = props => {
   return (
     <Row>
