@@ -64,6 +64,7 @@ export const logout = () => {
 
 export const sessionValidityCheck = () => {
   return dispatch => {
+    console.log("I am checking session");
     dispatch(loadingStart());
     const areTokensPresent = checkSessionValidity();
     console.log("Hllo", areTokensPresent);
@@ -77,11 +78,10 @@ export const sessionValidityCheck = () => {
 
       axios
         .get(
-          `apiEndpoints.sessionValidity/sessionId=${getCookie("sessionId")}`,
+          `${apiEndpoints.sessionValidity}?sessionId=${getCookie("sessionId")}`,
           config
         )
         .then(data => {
-          console.log("DATA...", data);
           if (data.data && data.data.statusCode === 200) {
             dispatch(loginSuccess());
             history.push("/landing");
@@ -89,6 +89,11 @@ export const sessionValidityCheck = () => {
             deleteAllCookies();
             dispatch(logout());
           }
+        })
+        .catch(error => {
+          console.log("Error is", error);
+          deleteAllCookies();
+          dispatch(logout());
         });
     }
   };

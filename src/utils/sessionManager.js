@@ -5,11 +5,13 @@ export default () => {
   const idToken = getCookie("idToken");
   const expiry = getCookie("expiry");
   const expiryValidation = checkExpiry(expiry);
+  console.log("Expiry...", expiryValidation);
   if (!sessionId || !idToken || !expiryValidation) return false;
   else return true;
 };
 
 const checkExpiry = expiry => {
-  const newDate = moment.utc().add("1", "hours");
-  return moment(expiry).isBefore(newDate);
+  const newDate = moment.utc().format();
+  console.log("newData", newDate);
+  return moment(expiry).isAfter(newDate);
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import { SettingFilled, LogoutOutlined, HomeOutlined } from "@ant-design/icons";
-import { Menu, Layout, Avatar } from "antd";
+import { Menu, Layout } from "antd";
 import "antd/dist/antd.css";
 const { Sider } = Layout;
 const SideKickStyle = {

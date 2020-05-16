@@ -1,18 +1,14 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import checkSessionValidity from "../utils/sessionManager";
 
 const ProtectedRoute = ({ component: Component, isLogin, path, ...rest }) => {
+  console.log("islogin", isLogin);
   return (
     <Route
       exact
       path={path}
       render={props =>
-        isLogin || checkSessionValidity() ? (
-          <Component {...rest} {...props} />
-        ) : (
-          <Redirect to="/" />
-        )
+        isLogin ? <Component {...rest} {...props} /> : <Redirect to="/" />
       }
     />
   );

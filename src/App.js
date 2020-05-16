@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import "./App.css";
-import { Route, Switch, Router } from "react-router-dom";
+import { Route, Router } from "react-router-dom";
 import AuthContainer from "./containers/AuthContainer";
 import ProtectedRoute from "./hoc/ProtectedRoute";
 import MenuComponent from "./components/Menu";

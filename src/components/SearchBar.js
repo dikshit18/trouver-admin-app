@@ -1,8 +1,6 @@
 import React from "react";
 import "antd/dist/antd.css";
 import { Input, Row, Col, Button } from "antd";
-import { UserOutlined } from "@ant-design/icons";
-import styled from "styled-components";
 
 const TextBoxStyle = {
   width: "70%",

@@ -1,11 +1,11 @@
 import React from "react";
-import styled, { createGlobalStyle, keyframes } from "styled-components";
+import styled from "styled-components";
 import { CubeGrid } from "styled-spinkit";
 import { Layout } from "antd";
-const rotate = keyframes`
- 0%,80%,100% { box-shadow: 0 2.5em 0 -1.3em; }
-  40% {  box-shadow: 0 2.5em 0 0; }
-`;
+// const rotate = keyframes`
+//  0%,80%,100% { box-shadow: 0 2.5em 0 -1.3em; }
+//   40% {  box-shadow: 0 2.5em 0 0; }
+// `;
 ///Styled Components -- For loader
 // const LoaderDiv = styled.div`
 //   &,

@@ -1,13 +1,11 @@
-import React, { useMemo } from "react";
-import styled from "styled-components";
-import { Menu, Layout, Breadcrumb } from "antd";
+import React from "react";
+import { Layout } from "antd";
 import "antd/dist/antd.css";
 import SideKick from "./SideKick";
 import UserList from "./UserList";
 import SearchBar from "./SearchBar";
 import UsersTable from "./UsersTable";
 const { Header, Content, Footer } = Layout;
-const handleClick = () => {};
 
 const HeaderStyle = {
   backgroundColor: "#fff",

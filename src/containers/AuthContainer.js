@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { login, sessionValidityCheck } from "../store/actions/index";
-import { Redirect } from "react-router-dom";
 import Auth from "../components/Auth";
 import styled from "styled-components";
 

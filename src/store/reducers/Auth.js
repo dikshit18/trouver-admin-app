@@ -1,6 +1,8 @@
 import * as ACTIONS from "../actions/actionTypes";
+import checkSessionValidity from "../../utils/sessionManager";
+
 const initialState = {
-  isLogin: /*checkSessionValidity() */ false,
+  isLogin: checkSessionValidity(),
   forgotPassword: false,
   error: null,
   loading: false
