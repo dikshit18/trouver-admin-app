@@ -22,8 +22,9 @@ export const menuReducer = (state = initialState, action) => {
         error: action.error
       };
     case ACTIONS.LOADING_DETAILS:
-      console.log("Iam slso being caalled");
       return { ...state, loading: true, error: null };
+    case ACTIONS.LOGOUT:
+      return {};
     default:
       return { ...state };
   }

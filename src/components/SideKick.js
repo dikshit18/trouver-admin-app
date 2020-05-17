@@ -22,7 +22,7 @@ const sideKick = props => {
         <Menu.Item key="2" icon={<SettingFilled />}>
           Settings
         </Menu.Item>
-        <Menu.Item key="3" icon={<LogoutOutlined />}>
+        <Menu.Item key="3" icon={<LogoutOutlined />} onClick={props.logout}>
           Logout
         </Menu.Item>
       </Menu>

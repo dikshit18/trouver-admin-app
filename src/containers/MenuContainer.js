@@ -2,13 +2,20 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { details } from "../store/actions/index";
 import Menu from "../components/Menu";
+import { triggerLogout } from "../store/actions/Menu";
 
 const MenuContainer = props => {
   const { onFetchDetails } = props;
   useEffect(() => {
     onFetchDetails();
   }, [onFetchDetails]);
-  return <Menu details={props.details} loading={props.loading} />;
+
+  const logout = () => {
+    props.onLogout();
+  };
+  return (
+    <Menu details={props.details} loading={props.loading} logout={logout} />
+  );
 };
 const mapStateToProps = state => {
   return {
@@ -20,6 +27,9 @@ const mapDispatchToProps = dispatch => {
   return {
     onFetchDetails: () => {
       dispatch(details());
+    },
+    onLogout: () => {
+      dispatch(triggerLogout());
     }
   };
 };

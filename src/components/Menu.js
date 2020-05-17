@@ -16,15 +16,13 @@ const HeaderStyle = {
 
 const MenuComponent = props => {
   const { details, loading } = props;
-  console.log("Loading or not", 1, props);
-
   return (
     <>
       {loading ? (
         <Loading />
       ) : (
         <Layout style={{ minHeight: "100vh" }}>
-          <SideKick />
+          <SideKick logout={props.logout} />
           <Layout className="site-layout">
             <Header
               style={{

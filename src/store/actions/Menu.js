@@ -1,7 +1,7 @@
 import * as ACTIONS from "./actionTypes";
 import axios from "../../utils/axios";
 import { apiEndpoints } from "../../utils/constants";
-import { getCookie } from "../../utils/cookies";
+import { getCookie, deleteAllCookies } from "../../utils/cookies";
 
 const detailsSuccess = details => {
   return {
@@ -39,5 +39,18 @@ export const details = () => {
 const loadingStart = () => {
   return {
     type: ACTIONS.LOADING_DETAILS
+  };
+};
+
+export const logout = () => {
+  return {
+    type: ACTIONS.LOGOUT
+  };
+};
+
+export const triggerLogout = () => {
+  return dispatch => {
+    deleteAllCookies();
+    dispatch(logout());
   };
 };
