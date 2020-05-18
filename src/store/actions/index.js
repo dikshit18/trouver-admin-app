@@ -1,2 +1,2 @@
-export { login, sessionValidityCheck } from "./Auth";
+export { login } from "./Auth";
 export { details } from "./Menu";

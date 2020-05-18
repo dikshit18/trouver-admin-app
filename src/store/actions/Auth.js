@@ -60,36 +60,36 @@ export const logout = () => {
   };
 };
 
-export const sessionValidityCheck = () => {
-  return dispatch => {
-    dispatch(loadingStart());
-    const areTokensPresent = checkSessionValidity();
-    if (!areTokensPresent) {
-      deleteAllCookies();
-      dispatch(logout());
-    } else {
-      const config = {
-        headers: { Authorization: getCookie("idToken") }
-      };
+// export const sessionValidityCheck = () => {
+//   return dispatch => {
+//     dispatch(loadingStart());
+//     const areTokensPresent = checkSessionValidity();
+//     if (!areTokensPresent) {
+//       deleteAllCookies();
+//       dispatch(logout());
+//     } else {
+//       const config = {
+//         headers: { Authorization: getCookie("idToken") }
+//       };
 
-      axios
-        .get(
-          `${apiEndpoints.sessionValidity}?sessionId=${getCookie("sessionId")}`,
-          config
-        )
-        .then(data => {
-          if (data.data && data.data.statusCode === 200) {
-            dispatch(loginSuccess());
-            history.push("/landing");
-          } else {
-            deleteAllCookies();
-            dispatch(logout());
-          }
-        })
-        .catch(error => {
-          deleteAllCookies();
-          dispatch(logout());
-        });
-    }
-  };
-};
+//       axios
+//         .get(
+//           `${apiEndpoints.sessionValidity}?sessionId=${getCookie("sessionId")}`,
+//           config
+//         )
+//         .then(data => {
+//           if (data.data && data.data.statusCode === 200) {
+//             dispatch(loginSuccess());
+//             history.push("/landing");
+//           } else {
+//             deleteAllCookies();
+//             dispatch(logout());
+//           }
+//         })
+//         .catch(error => {
+//           deleteAllCookies();
+//           dispatch(logout());
+//         });
+//     }
+//   };
+// };

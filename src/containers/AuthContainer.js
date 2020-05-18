@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { login, sessionValidityCheck } from "../store/actions/index";
+import { login } from "../store/actions/index";
+import { sessionState } from "../store/selectors/AuthSelector";
 import Auth from "../components/Auth";
 import styled from "styled-components";
+import { history } from "../utils/history";
+import { logout } from "../store/actions/Auth";
 
 const Layout = styled.div`
   background: rgb(238, 174, 202);
@@ -21,10 +24,18 @@ const Layout = styled.div`
 `;
 
 const AuthContainer = props => {
-  const { onSessionValidityCheck } = props;
+  const { onLogout } = props;
   useEffect(() => {
-    onSessionValidityCheck();
-  }, [onSessionValidityCheck]);
+    async function sample() {
+      console.log("Callingnow ", await sessionState());
+      if (!(await sessionState())) {
+        onLogout();
+      } else {
+        history.push("/landing");
+      }
+    }
+    sample();
+  }, [onLogout]);
   return (
     <Layout>
       <Auth
@@ -46,8 +57,8 @@ const mapDispatchToProps = dispatch => {
     onSubmitHandler: ({ username, password }) => {
       dispatch(login(username, password));
     },
-    onSessionValidityCheck: () => {
-      dispatch(sessionValidityCheck());
+    onLogout: () => {
+      dispatch(logout());
     }
   };
 };
