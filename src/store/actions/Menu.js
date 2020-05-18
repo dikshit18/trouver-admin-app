@@ -41,16 +41,3 @@ const loadingStart = () => {
     type: ACTIONS.LOADING_DETAILS
   };
 };
-
-export const logout = () => {
-  return {
-    type: ACTIONS.LOGOUT
-  };
-};
-
-export const triggerLogout = () => {
-  return dispatch => {
-    deleteAllCookies();
-    dispatch(logout());
-  };
-};

@@ -1,10 +1,9 @@
 import * as ACTIONS from "./actionTypes";
 import axios from "../../utils/axios";
 import { apiEndpoints } from "../../utils/constants";
-import { setCookie, getCookie, deleteAllCookies } from "../../utils/cookies";
+import { setCookie, deleteAllCookies } from "../../utils/cookies";
 import moment from "moment";
 import { history } from "../../utils/history";
-import checkSessionValidity from "../../utils/sessionManager";
 
 const loginSuccess = () => {
   return {
@@ -60,36 +59,9 @@ export const logout = () => {
   };
 };
 
-// export const sessionValidityCheck = () => {
-//   return dispatch => {
-//     dispatch(loadingStart());
-//     const areTokensPresent = checkSessionValidity();
-//     if (!areTokensPresent) {
-//       deleteAllCookies();
-//       dispatch(logout());
-//     } else {
-//       const config = {
-//         headers: { Authorization: getCookie("idToken") }
-//       };
-
-//       axios
-//         .get(
-//           `${apiEndpoints.sessionValidity}?sessionId=${getCookie("sessionId")}`,
-//           config
-//         )
-//         .then(data => {
-//           if (data.data && data.data.statusCode === 200) {
-//             dispatch(loginSuccess());
-//             history.push("/landing");
-//           } else {
-//             deleteAllCookies();
-//             dispatch(logout());
-//           }
-//         })
-//         .catch(error => {
-//           deleteAllCookies();
-//           dispatch(logout());
-//         });
-//     }
-//   };
-// };
+export const triggerLogout = () => {
+  return dispatch => {
+    deleteAllCookies();
+    dispatch(logout());
+  };
+};

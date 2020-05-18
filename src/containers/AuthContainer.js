@@ -5,7 +5,7 @@ import { sessionState } from "../store/selectors/AuthSelector";
 import Auth from "../components/Auth";
 import styled from "styled-components";
 import { history } from "../utils/history";
-import { logout } from "../store/actions/Auth";
+import { triggerLogout } from "../store/actions";
 
 const Layout = styled.div`
   background: rgb(238, 174, 202);
@@ -58,7 +58,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(login(username, password));
     },
     onLogout: () => {
-      dispatch(logout());
+      dispatch(triggerLogout());
     }
   };
 };

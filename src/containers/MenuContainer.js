@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { details } from "../store/actions/index";
 import Menu from "../components/Menu";
-import { triggerLogout } from "../store/actions/Menu";
+import { triggerLogout } from "../store/actions";
 
 const MenuContainer = props => {
   const { onFetchDetails } = props;
