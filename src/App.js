@@ -12,9 +12,8 @@ function App(props) {
     <div className="App">
       <Router history={history}>
         <Route exact path="/" component={AuthContainer} />
-        <Route exact path="/loading" component={MenuContainer} />
         <ProtectedRoute
-          path="/landing"
+          path="/dashboard"
           component={MenuContainer}
           isLogin={props.isLogin}
         />

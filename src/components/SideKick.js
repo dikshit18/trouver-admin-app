@@ -1,6 +1,7 @@
 import React from "react";
 import { SettingFilled, LogoutOutlined, HomeOutlined } from "@ant-design/icons";
-import { Menu, Layout } from "antd";
+import SettingsDrawer from "../components/SettingsDrawer";
+import { Menu, Layout, Drawer } from "antd";
 import "antd/dist/antd.css";
 const { Sider } = Layout;
 const SideKickStyle = {
@@ -12,6 +13,7 @@ const LogOutStyle = {
   backgroundColor: "#007C89",
   marginRight: "1rem"
 };
+
 const sideKick = props => {
   return (
     <Sider theme={"light"} collapsed={true} style={{ ...SideKickStyle }}>
@@ -21,6 +23,7 @@ const sideKick = props => {
         </Menu.Item>
         <Menu.Item key="2" icon={<SettingFilled />}>
           Settings
+          <SettingsDrawer />
         </Menu.Item>
         <Menu.Item key="3" icon={<LogoutOutlined />} onClick={props.logout}>
           Logout
