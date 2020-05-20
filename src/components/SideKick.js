@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { SettingFilled, LogoutOutlined, HomeOutlined } from "@ant-design/icons";
 import SettingsDrawer from "../components/SettingsDrawer";
-import { Menu, Layout, Drawer } from "antd";
+import { Menu, Layout } from "antd";
 import "antd/dist/antd.css";
 const { Sider } = Layout;
 const SideKickStyle = {
@@ -14,16 +14,30 @@ const LogOutStyle = {
   marginRight: "1rem"
 };
 
-const sideKick = props => {
+const SideKick = props => {
+  const [drawerMode, updateDrawerMode] = useState(false);
+  const [selectedKeys, updateSelectedKeys] = useState(["1"]);
+  const closeDrawer = () => {
+    updateDrawerMode(false);
+    updateSelectedKeys(["1"]);
+  };
+
   return (
     <Sider theme={"light"} collapsed={true} style={{ ...SideKickStyle }}>
-      <Menu theme="light" defaultSelectedKeys={["1"]} mode="inline">
+      <Menu theme="light" defaultSelectedKeys={selectedKeys} mode="inline">
         <Menu.Item key="1" icon={<HomeOutlined />}>
           Settings
         </Menu.Item>
-        <Menu.Item key="2" icon={<SettingFilled />}>
+        <Menu.Item
+          key="2"
+          icon={<SettingFilled />}
+          onClick={() => {
+            updateDrawerMode(!drawerMode);
+            updateSelectedKeys(["2"]);
+          }}
+        >
           Settings
-          <SettingsDrawer />
+          <SettingsDrawer visible={drawerMode} close={closeDrawer} />
         </Menu.Item>
         <Menu.Item key="3" icon={<LogoutOutlined />} onClick={props.logout}>
           Logout
@@ -38,4 +52,4 @@ const sideKick = props => {
   );
 };
 
-export default sideKick;
+export default SideKick;
