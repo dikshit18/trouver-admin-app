@@ -31,7 +31,7 @@ const AuthContainer = props => {
       if (!(await sessionState())) {
         onLogout();
       } else {
-        history.push("/landing");
+        history.push("/dashboard");
       }
     }
     sample();

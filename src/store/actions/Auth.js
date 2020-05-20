@@ -39,7 +39,7 @@ export const login = (username, password) => {
           setCookie("expiry", expiry);
         }
         dispatch(loginSuccess());
-        history.push("/landing");
+        history.push("/dashboard");
       })
       .catch(error => {
         dispatch(loginFailure(error));
