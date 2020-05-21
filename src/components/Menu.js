@@ -22,7 +22,7 @@ const MenuComponent = props => {
         <Loading />
       ) : (
         <Layout style={{ minHeight: "100vh" }}>
-          <SideKick logout={props.logout} />
+          <SideKick logout={props.logout} submit={props.submit} />
           <Layout className="site-layout">
             <Header
               style={{

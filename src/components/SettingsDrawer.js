@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Drawer, Form, Typography, Col, Row, Input, Button } from "antd";
 import "antd/dist/antd.css";
 import styled from "styled-components";
-import Loader from "./Loader";
 const { Text } = Typography;
 const StyledForm = styled(Form)`
   margin-top: 2rem;
@@ -20,7 +19,6 @@ const buttonStyles = {
 };
 const SettingsDrawer = props => {
   console.log("Hello", props.drawerMode);
-  const [visible, setVisible] = useState(false);
 
   return (
     <>
@@ -34,11 +32,7 @@ const SettingsDrawer = props => {
           key={"right"}
           width={"402"}
         >
-          <StyledForm
-            onFinish={values => {
-              props.onSubmit(values);
-            }}
-          >
+          <StyledForm onFinish={values => props.submit(values)}>
             <Row>
               <Col lg={8} md={8} xs={8} sm={8}>
                 <Text strong>Old Password</Text>
@@ -49,8 +43,7 @@ const SettingsDrawer = props => {
                   rules={[
                     {
                       required: true,
-                      type: "password",
-                      message: "Please input a valid email"
+                      message: "Please input your password"
                     }
                   ]}
                 >
@@ -71,8 +64,7 @@ const SettingsDrawer = props => {
                   rules={[
                     {
                       required: true,
-                      type: "password",
-                      message: "Please input a valid email"
+                      message: "Please input your password"
                     }
                   ]}
                 >
@@ -90,8 +82,7 @@ const SettingsDrawer = props => {
                   rules={[
                     {
                       required: true,
-                      type: "password",
-                      message: "Please input a valid email"
+                      message: "Please input your password"
                     }
                   ]}
                 >

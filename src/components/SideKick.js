@@ -16,28 +16,32 @@ const LogOutStyle = {
 
 const SideKick = props => {
   const [drawerMode, updateDrawerMode] = useState(false);
-  const [selectedKeys, updateSelectedKeys] = useState(["1"]);
+  const [selectedKeys, _] = useState(["1"]);
   const closeDrawer = () => {
     updateDrawerMode(false);
-    updateSelectedKeys(["1"]);
+  };
+  const onClickSettings = () => {
+    updateDrawerMode(!drawerMode);
   };
 
   return (
     <Sider theme={"light"} collapsed={true} style={{ ...SideKickStyle }}>
-      <Menu theme="light" defaultSelectedKeys={selectedKeys} mode="inline">
+      <Menu
+        theme="light"
+        defaultSelectedKeys={selectedKeys}
+        selectable={false}
+        mode="inline"
+      >
         <Menu.Item key="1" icon={<HomeOutlined />}>
-          Settings
+          Home
         </Menu.Item>
-        <Menu.Item
-          key="2"
-          icon={<SettingFilled />}
-          onClick={() => {
-            updateDrawerMode(!drawerMode);
-            updateSelectedKeys(["2"]);
-          }}
-        >
+        <Menu.Item key="2" icon={<SettingFilled />} onClick={onClickSettings}>
           Settings
-          <SettingsDrawer visible={drawerMode} close={closeDrawer} />
+          <SettingsDrawer
+            visible={drawerMode}
+            close={closeDrawer}
+            submit={props.submit}
+          />
         </Menu.Item>
         <Menu.Item key="3" icon={<LogoutOutlined />} onClick={props.logout}>
           Logout
@@ -47,7 +51,7 @@ const SideKick = props => {
         defaultSelectedKeys={["0"]}
         mode="inline"
         style={{ ...LogOutStyle }}
-      ></Menu>
+      />
     </Sider>
   );
 };

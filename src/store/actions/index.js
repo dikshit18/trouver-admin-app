@@ -1,2 +1,2 @@
 export { login, triggerLogout } from "./Auth";
-export { details } from "./Menu";
+export { details, changePassword } from "./Menu";

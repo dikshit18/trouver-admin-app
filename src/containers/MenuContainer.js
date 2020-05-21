@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { details } from "../store/actions/index";
+import { details, changePassword } from "../store/actions/index";
 import Menu from "../components/Menu";
 import { triggerLogout } from "../store/actions";
 
@@ -13,8 +13,16 @@ const MenuContainer = props => {
   const logout = () => {
     props.onLogout();
   };
+  const changePasswordFormSubmit = values => {
+    props.onChangePassword(values);
+  };
   return (
-    <Menu details={props.details} loading={props.loading} logout={logout} />
+    <Menu
+      details={props.details}
+      loading={props.loading}
+      logout={logout}
+      submit={changePasswordFormSubmit}
+    />
   );
 };
 const mapStateToProps = state => {
@@ -30,6 +38,9 @@ const mapDispatchToProps = dispatch => {
     },
     onLogout: () => {
       dispatch(triggerLogout());
+    },
+    onChangePassword: values => {
+      dispatch(changePassword(values));
     }
   };
 };

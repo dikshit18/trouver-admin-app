@@ -1,7 +1,7 @@
 import * as ACTIONS from "./actionTypes";
 import axios from "../../utils/axios";
 import { apiEndpoints } from "../../utils/constants";
-import { getCookie, deleteAllCookies } from "../../utils/cookies";
+import { getCookie } from "../../utils/cookies";
 
 const detailsSuccess = details => {
   return {
@@ -33,6 +33,37 @@ export const details = () => {
       .catch(error => {
         dispatch(detailsFailure(error));
       });
+  };
+};
+
+const changePasswordSuccess = () => {
+  return {
+    type: ACTIONS.CHANGE_PASSWORD_SUCCESS
+  };
+};
+const changePasswordFailure = error => {
+  return {
+    type: ACTIONS.CHANGE_PASSWORD_FAILURE,
+    error
+  };
+};
+
+export const changePassword = values => {
+  return dispatch => {
+    dispatch(loadingStart());
+    const { oldPassword, newPassword } = values;
+    const sessionId = getCookie("sessionId");
+    const idToken = getCookie("idToken");
+    const payload = { sessionId, oldPassword, newPassword };
+    const config = {
+      headers: { Authorization: idToken }
+    };
+    axios
+      .post(apiEndpoints.changePassword, payload, config)
+      .then(data => {
+        dispatch(changePasswordSuccess());
+      })
+      .catch(error => dispatch(changePasswordFailure(error)));
   };
 };
 

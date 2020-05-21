@@ -32,6 +32,10 @@ const Label = styled.p`
   margin-top: 1rem;
   margin-bottom: -0.1rem;
 `;
+const fadeStyle = {
+  opacity: 0,
+  transition: "width 0.5s 0.5s, height 0.5s 0.5s, opacity 0.5s"
+};
 
 const InputControls = props => {
   return (
@@ -96,7 +100,7 @@ const Auth = props => {
       {props.loading ? (
         <Loader />
       ) : (
-        <Row>
+        <Row style={props.loading ? { ...fadeStyle } : null}>
           <Col lg={6} md={6} xs={0} sm={0}></Col>
           <Col lg={12} md={12} xs={24} sm={24}>
             <Card style={{ ...cardStyles }}>

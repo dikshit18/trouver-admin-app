@@ -46,6 +46,7 @@ import { Layout } from "antd";
 //     left: 3.5em;
 //   }
 // `;
+
 const Loader = styled.div`
   margin-top: 14rem;
 `;
