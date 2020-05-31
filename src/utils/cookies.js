@@ -16,5 +16,5 @@ export const deleteCookie = key => {
 export const deleteAllCookies = () => {
   deleteCookie("idToken");
   deleteCookie("sessionId");
-  deleteCookie("expiry");
+  //deleteCookie("expiry");
 };

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { login } from "../store/actions/index";
-import { sessionState } from "../store/selectors/AuthSelector";
+import { sessionState } from "../utils/sessionManager";
 import Auth from "../components/Auth";
 import styled from "styled-components";
 import { history } from "../utils/history";
@@ -26,15 +26,14 @@ const Layout = styled.div`
 const AuthContainer = props => {
   const { onLogout } = props;
   useEffect(() => {
-    async function sample() {
-      console.log("Callingnow ", await sessionState());
+    async function checkSession() {
       if (!(await sessionState())) {
         onLogout();
       } else {
         history.push("/dashboard");
       }
     }
-    sample();
+    checkSession();
   }, [onLogout]);
   return (
     <Layout>

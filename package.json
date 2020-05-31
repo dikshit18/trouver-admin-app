@@ -21,7 +21,8 @@
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
     "styled-components": "^5.1.0",
-    "styled-spinkit": "^1.1.0"
+    "styled-spinkit": "^1.1.0",
+    "websocket": "^1.0.31"
   },
   "scripts": {
     "start": "react-scripts start",

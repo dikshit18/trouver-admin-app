@@ -1,9 +1,8 @@
 import * as ACTIONS from "../actions/actionTypes";
-import checkSessionValidity from "../../utils/sessionManager";
 
 const initialState = {
   error: null,
-  loading: false,
+  loading: true,
   details: null
 };
 
@@ -22,7 +21,7 @@ export const menuReducer = (state = initialState, action) => {
         error: action.error
       };
     case ACTIONS.LOADING_DETAILS:
-      return { ...state, loading: true, error: null };
+      return { ...state, error: null };
     case ACTIONS.LOGOUT:
       return {};
     case ACTIONS.CHANGE_PASSWORD_SUCCESS:

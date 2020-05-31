@@ -3,54 +3,55 @@ import { connect } from "react-redux";
 import { details, changePassword } from "../store/actions/index";
 import Menu from "../components/Menu";
 import { triggerLogout } from "../store/actions";
+import {
+  initiateClient,
+  handleWebsocketResponse
+} from "../utils/websocketHelper";
+import { getCookie } from "../utils/cookies";
 
 const MenuContainer = props => {
-  const unload = e => {
-    console.log("Hello Hi", e);
-    e.preventDefault();
-    setTimeout(() => {
-      window.removeEventListener("beforeunload", () => {
-        console.log("removing lostener");
-      });
-      console.log("removing lostener");
-    }, 2000);
-  };
-  //useEffect to refresh session
-  useEffect(() => {
-    console.log("In app.js useEffect");
-    const interval = setInterval(() => {
-      console.log("Session Refreshed");
-    }, 5000);
-    window.addEventListener("beforeunload", event => {
-      // Cancel the event as stated by the standard.
-      event.preventDefault();
-      // Chrome requires returnValue to be set.
-      setTimeout(() => {
-        window.removeEventListener("beforeunload", () => {
-          console.log("removing lostener");
-        });
-      }, 2000);
-    });
-    return () => {
-      // window.removeEventListener("beforeunload", () => {
-      //   console.log("removing lostener");
-      // });
-      window.onbeforeunload = null;
-      console.log("Clearng interval");
-      clearInterval(interval);
-    };
-  }, []);
   const { onFetchDetails } = props;
   useEffect(() => {
     onFetchDetails();
   }, [onFetchDetails]);
-
+  useEffect(() => {
+    let client;
+    client = initiateClient();
+    client.onmessage = message => {
+      console.log("Message in websocket...", message.data);
+    };
+    const webSocketInterval = setInterval(() => {
+      client.close();
+      client.onclose = () => {
+        console.log("Closing websocket connection now... ", Date());
+      };
+      client = null;
+      const sessionId = getCookie("sessionId");
+      if (sessionId) {
+        client = initiateClient();
+        client.onmessage = message => {
+          try {
+            console.log("Message in websocket....", message);
+            const parsedMessage = JSON.parse(message);
+            handleWebsocketResponse(parsedMessage);
+          } catch (error) {
+            //Non handled message which isn't JSON.
+          }
+        };
+      }
+    }, 10000000); //Every 9.5 minutes
+    return () => {
+      client.close();
+      clearInterval(webSocketInterval);
+    };
+  }, []);
   const logout = () => {
     props.onLogout();
   };
   const changePasswordFormSubmit = values => {
     props.onChangePassword(values);
   };
+
   return (
     <Menu
       details={props.details}
