@@ -29,7 +29,13 @@ const MenuContainer = props => {
     let client;
     client = initiateClient();
     client.onmessage = message => {
-      console.log("Message in websocket...", message.data);
+      try {
+        console.log("Message in websocket....", message);
+        const parsedMessage = JSON.parse(message.data);
+        handleWebsocketResponse(parsedMessage);
+      } catch (error) {
+        //Non handled message which aren't JSON.
+      }
     };
     const webSocketInterval = setInterval(() => {
       client.close();
@@ -43,14 +49,14 @@ const MenuContainer = props => {
         client.onmessage = message => {
           try {
             console.log("Message in websocket....", message);
-            const parsedMessage = JSON.parse(message);
+            const parsedMessage = JSON.parse(message.data);
             handleWebsocketResponse(parsedMessage);
           } catch (error) {
             //Non handled message which aren't JSON.
           }
         };
       }
-    }, 10000000); //Every 9.5 minutes
+    }, 5700000); //Every 9.5 minutes
     return () => {
       client.close();
       clearInterval(webSocketInterval);

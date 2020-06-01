@@ -30,7 +30,7 @@ export const initiateClient = () => {
 export const handleWebsocketResponse = message => {
   console.log("Message from websocket...", message);
   const { sessionStatus, tokens, sessionId } = message;
-  if ((sessionStatus === "new" && tokens.IdToken, sessionId)) {
+  if (sessionStatus === "new" && tokens.IdToken && sessionId) {
     setCookie("sessionId", sessionId);
     setCookie("idToken", tokens.IdToken);
   }
