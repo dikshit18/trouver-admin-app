@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { details, changePassword } from "../store/actions/index";
+import { sessionState } from "../utils/sessionManager";
 import Menu from "../components/Menu";
 import { triggerLogout } from "../store/actions";
 import {
@@ -10,7 +11,17 @@ import {
 import { getCookie } from "../utils/cookies";
 
 const MenuContainer = props => {
-  const { onFetchDetails } = props;
+  const { onFetchDetails, onLogout } = props;
+  useEffect(() => {
+    //This useEffect will check if the user has a valid session
+    async function checkSession() {
+      if (!(await sessionState())) {
+        onLogout();
+      }
+    }
+    checkSession();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   useEffect(() => {
     onFetchDetails();
   }, [onFetchDetails]);
@@ -35,7 +46,7 @@ const MenuContainer = props => {
             const parsedMessage = JSON.parse(message);
             handleWebsocketResponse(parsedMessage);
           } catch (error) {
-            //Non handled message which isn't JSON.
+            //Non handled message which aren't JSON.
           }
         };
       }
