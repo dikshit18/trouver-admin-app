@@ -22,7 +22,9 @@ export const menuReducer = (state = initialState, action) => {
       };
     case ACTIONS.LOADING_DETAILS:
       return { ...state, error: null };
-    case ACTIONS.LOGOUT:
+    case ACTIONS.LOGOUT_SUCCESS:
+      return {};
+    case ACTIONS.LOGOUT_FAILURE:
       return {};
     case ACTIONS.CHANGE_PASSWORD_SUCCESS:
       return { ...state, loading: false };

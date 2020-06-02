@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { details, changePassword } from "../store/actions/index";
 import { sessionState } from "../utils/sessionManager";
 import Menu from "../components/Menu";
-import { triggerLogout } from "../store/actions";
+import { logout } from "../store/actions";
 import {
   initiateClient,
   handleWebsocketResponse
@@ -32,6 +32,13 @@ const MenuContainer = props => {
       try {
         console.log("Message in websocket....", message);
         const parsedMessage = JSON.parse(message.data);
+        console.log("parsedMessage", parsedMessage.dispatch);
+        if (parsedMessage.dispatch === "logout") {
+          onLogout();
+          return () => {
+            client.close();
+          };
+        }
         handleWebsocketResponse(parsedMessage);
       } catch (error) {
         //Non handled message which aren't JSON.
@@ -50,6 +57,12 @@ const MenuContainer = props => {
           try {
             console.log("Message in websocket....", message);
             const parsedMessage = JSON.parse(message.data);
+            if (parsedMessage.dispatch === "logout") {
+              onLogout();
+              return () => {
+                client.close();
+              };
+            }
             handleWebsocketResponse(parsedMessage);
           } catch (error) {
             //Non handled message which aren't JSON.
@@ -61,6 +74,7 @@ const MenuContainer = props => {
       client.close();
       clearInterval(webSocketInterval);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const logout = () => {
     props.onLogout();
@@ -90,7 +104,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(details());
     },
     onLogout: () => {
-      dispatch(triggerLogout());
+      dispatch(logout());
     },
     onChangePassword: values => {
       dispatch(changePassword(values));

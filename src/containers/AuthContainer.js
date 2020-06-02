@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { login } from "../store/actions/index";
+import { login, logout } from "../store/actions/index";
 import { sessionState } from "../utils/sessionManager";
 import Auth from "../components/Auth";
 import styled from "styled-components";
 import { history } from "../utils/history";
-import { triggerLogout } from "../store/actions";
 
 const Layout = styled.div`
   background: rgb(238, 174, 202);
@@ -57,7 +56,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(login(username, password));
     },
     onLogout: () => {
-      dispatch(triggerLogout());
+      dispatch(logout());
     }
   };
 };

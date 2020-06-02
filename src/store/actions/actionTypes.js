@@ -3,7 +3,8 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
 export const LOADING_START = "LOADING_START";
 
-export const LOGOUT = "LOGOUT";
+export const LOGOUT_FAILURE = "LOGOUT_FAILURE";
+export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 
 //Separate loader for Menu Component as using the same updates state in both the components
 export const LOADING_DETAILS = "LOADING_DETAILS";

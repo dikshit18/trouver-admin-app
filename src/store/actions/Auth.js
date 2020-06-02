@@ -1,7 +1,7 @@
 import * as ACTIONS from "./actionTypes";
 import axios from "../../utils/axios";
 import { apiEndpoints } from "../../utils/constants";
-import { setCookie, deleteAllCookies } from "../../utils/cookies";
+import { setCookie, deleteAllCookies, getCookie } from "../../utils/cookies";
 import moment from "moment";
 import { history } from "../../utils/history";
 
@@ -53,15 +53,32 @@ const loadingStart = () => {
   };
 };
 
-export const logout = () => {
+const logoutSuccess = () => {
   return {
-    type: ACTIONS.LOGOUT
+    type: ACTIONS.LOGOUT_SUCCESS
+  };
+};
+const logoutFailure = error => {
+  return {
+    type: ACTIONS.LOGOUT_FAILURE,
+    error
   };
 };
 
-export const triggerLogout = () => {
+export const logout = () => {
   return dispatch => {
-    deleteAllCookies();
-    dispatch(logout());
+    const sessionId = getCookie("sessionId");
+    const idToken = getCookie("idToken");
+    const config = {
+      headers: { Authorization: idToken }
+    };
+    axios
+      .delete(`${apiEndpoints.sessionValidity}/${sessionId}`, config)
+      .then(_ => {
+        deleteAllCookies();
+        dispatch(logoutSuccess);
+      })
+      .catch(error => dispatch(logoutFailure));
+    dispatch(loginSuccess());
   };
 };
