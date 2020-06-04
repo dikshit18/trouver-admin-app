@@ -72,13 +72,16 @@ export const logout = () => {
     const config = {
       headers: { Authorization: idToken }
     };
-    axios
-      .delete(`${apiEndpoints.sessionValidity}/${sessionId}`, config)
-      .then(_ => {
-        deleteAllCookies();
-        dispatch(logoutSuccess);
-      })
-      .catch(error => dispatch(logoutFailure));
-    dispatch(loginSuccess());
+    if (!sessionId || !idToken) {
+      dispatch(logoutSuccess());
+    } else {
+      axios
+        .delete(`${apiEndpoints.sessionValidity}/${sessionId}`, config)
+        .then(_ => {
+          deleteAllCookies();
+          dispatch(logoutSuccess());
+        })
+        .catch(error => dispatch(logoutFailure()));
+    }
   };
 };

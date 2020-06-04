@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { details, changePassword } from "../store/actions/index";
-import { sessionState } from "../utils/sessionManager";
 import Menu from "../components/Menu";
 import { logout } from "../store/actions";
+import SessionValidityHOC from "../hoc/SessionValidity";
 import {
   initiateClient,
   handleWebsocketResponse
@@ -12,16 +12,6 @@ import { getCookie } from "../utils/cookies";
 
 const MenuContainer = props => {
   const { onFetchDetails, onLogout } = props;
-  useEffect(() => {
-    //This useEffect will check if the user has a valid session
-    async function checkSession() {
-      if (!(await sessionState())) {
-        onLogout();
-      }
-    }
-    checkSession();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   useEffect(() => {
     onFetchDetails();
   }, [onFetchDetails]);
@@ -69,7 +59,7 @@ const MenuContainer = props => {
           }
         };
       }
-    }, 5700000); //Every 9.5 minutes
+    }, 570000); //Every 9.5 minutes
     return () => {
       client.close();
       clearInterval(webSocketInterval);
@@ -112,4 +102,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MenuContainer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SessionValidityHOC(MenuContainer));

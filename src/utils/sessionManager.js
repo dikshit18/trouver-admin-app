@@ -36,6 +36,7 @@ export const sessionState = async () => {
     );
     return true;
   } catch (error) {
+    console.log("Error in sessionState...", error);
     return false;
   }
 };

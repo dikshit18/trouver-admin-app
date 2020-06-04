@@ -1,11 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
-import { login, logout } from "../store/actions/index";
-import { sessionState } from "../utils/sessionManager";
+import { login } from "../store/actions/index";
 import Auth from "../components/Auth";
 import styled from "styled-components";
-import { history } from "../utils/history";
-
+import SessionValidityHOC from "../hoc/SessionValidity";
 const Layout = styled.div`
   background: rgb(238, 174, 202);
   background: linear-gradient(
@@ -23,17 +21,6 @@ const Layout = styled.div`
 `;
 
 const AuthContainer = props => {
-  const { onLogout } = props;
-  useEffect(() => {
-    async function checkSession() {
-      if (!(await sessionState())) {
-        onLogout();
-      } else {
-        history.push("/dashboard");
-      }
-    }
-    checkSession();
-  }, [onLogout]);
   return (
     <Layout>
       <Auth
@@ -54,11 +41,11 @@ const mapDispatchToProps = dispatch => {
   return {
     onSubmitHandler: ({ username, password }) => {
       dispatch(login(username, password));
-    },
-    onLogout: () => {
-      dispatch(logout());
     }
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AuthContainer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SessionValidityHOC(AuthContainer));
