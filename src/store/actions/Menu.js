@@ -1,7 +1,7 @@
 import * as ACTIONS from "./actionTypes";
 import axios from "../../utils/axios";
 import { apiEndpoints } from "../../utils/constants";
-import { getCookie } from "../../utils/cookies";
+import { getCookie, deleteAllCookies } from "../../utils/cookies";
 
 const detailsSuccess = details => {
   return {
@@ -15,10 +15,15 @@ const detailsFailure = error => {
     error
   };
 };
+const detailsStart = () => {
+  return {
+    type: ACTIONS.DETAILS_START
+  };
+};
 
 export const details = () => {
   return dispatch => {
-    dispatch(loadingStart());
+    dispatch(detailsStart());
     const config = {
       headers: { Authorization: getCookie("idToken") }
     };
@@ -47,10 +52,15 @@ const changePasswordFailure = error => {
     error
   };
 };
+const changePasswordStart = () => {
+  return {
+    type: ACTIONS.CHANGE_PASSWORD_START
+  };
+};
 
 export const changePassword = values => {
   return dispatch => {
-    dispatch(loadingStart());
+    dispatch(changePasswordStart());
     const { oldPassword, newPassword } = values;
     const sessionId = getCookie("sessionId");
     const idToken = getCookie("idToken");
@@ -64,11 +74,5 @@ export const changePassword = values => {
         dispatch(changePasswordSuccess());
       })
       .catch(error => dispatch(changePasswordFailure(error)));
-  };
-};
-
-const loadingStart = () => {
-  return {
-    type: ACTIONS.LOADING_DETAILS
   };
 };

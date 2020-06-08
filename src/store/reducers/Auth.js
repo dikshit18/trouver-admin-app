@@ -22,12 +22,13 @@ export const authReducer = (state = initialState, action) => {
         loading: false,
         error: action.error
       };
-    case ACTIONS.LOADING_START:
-      return { ...state, loading: true, error: null };
     case ACTIONS.LOGOUT_SUCCESS:
       return {};
     case ACTIONS.LOGOUT_FAILURE:
       return {};
+    case ACTIONS.LOGIN_START:
+    case ACTIONS.LOGOUT_START:
+      return { ...state, loading: true, error: null };
     default:
       return { ...state };
   }

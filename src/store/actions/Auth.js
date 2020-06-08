@@ -15,10 +15,15 @@ const loginFailure = error => {
     error
   };
 };
+const loginStart = () => {
+  return {
+    type: ACTIONS.LOGIN_START
+  };
+};
 
 export const login = (username, password) => {
   return dispatch => {
-    dispatch(loadingStart());
+    dispatch(loginStart());
     const payload = {
       email: username,
       password
@@ -42,12 +47,6 @@ export const login = (username, password) => {
   };
 };
 
-const loadingStart = () => {
-  return {
-    type: ACTIONS.LOADING_START
-  };
-};
-
 const logoutSuccess = () => {
   return {
     type: ACTIONS.LOGOUT_SUCCESS
@@ -59,10 +58,15 @@ const logoutFailure = error => {
     error
   };
 };
+const logoutStart = () => {
+  return {
+    type: ACTIONS.LOGOUT_START
+  };
+};
 
 export const logout = () => {
   return dispatch => {
-    dispatch(loadingStart());
+    dispatch(logoutStart());
     const sessionId = getCookie("sessionId");
     const idToken = getCookie("idToken");
     const config = {

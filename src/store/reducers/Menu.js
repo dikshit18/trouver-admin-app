@@ -20,10 +20,6 @@ export const menuReducer = (state = initialState, action) => {
         loading: false,
         error: action.error
       };
-    case ACTIONS.LOADING_START:
-      return { ...state, loading: true, error: null };
-    case ACTIONS.LOADING_DETAILS:
-      return { ...state, error: null };
     case ACTIONS.LOGOUT_SUCCESS:
       return {};
     case ACTIONS.LOGOUT_FAILURE:
@@ -32,6 +28,10 @@ export const menuReducer = (state = initialState, action) => {
       return { ...state, loading: false };
     case ACTIONS.CHANGE_PASSWORD_FAILURE:
       return { ...state, loading: false, error: action.error };
+    case ACTIONS.LOGOUT_START:
+    case ACTIONS.DETAILS_START:
+    case ACTIONS.CHANGE_PASSWORD_START:
+      return { ...state, loading: true, error: null };
     default:
       return { ...state };
   }
