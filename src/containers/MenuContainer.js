@@ -20,6 +20,7 @@ const MenuContainer = props => {
     client = initiateClient();
     client.onmessage = message => {
       try {
+        if (!props.details) client.close();
         console.log("Message in websocket....", message);
         const parsedMessage = JSON.parse(message.data);
         console.log("parsedMessage", parsedMessage.dispatch);

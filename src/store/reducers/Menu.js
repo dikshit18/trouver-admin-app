@@ -20,6 +20,8 @@ export const menuReducer = (state = initialState, action) => {
         loading: false,
         error: action.error
       };
+    case ACTIONS.LOADING_START:
+      return { ...state, loading: true, error: null };
     case ACTIONS.LOADING_DETAILS:
       return { ...state, error: null };
     case ACTIONS.LOGOUT_SUCCESS:
