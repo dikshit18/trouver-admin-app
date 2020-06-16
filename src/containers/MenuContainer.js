@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { details, changePassword } from "../store/actions/index";
+import { details, changePassword, staffUsers } from "../store/actions/index";
 import Menu from "../components/Menu";
 import { logout } from "../store/actions";
 import SessionValidityHOC from "../hoc/SessionValidity";
@@ -11,10 +11,11 @@ import {
 import { getCookie } from "../utils/cookies";
 
 const MenuContainer = props => {
-  const { onFetchDetails, onLogout } = props;
+  const { onFetchDetails, onFetchStaffUsers, onLogout } = props;
   useEffect(() => {
     onFetchDetails();
-  }, [onFetchDetails]);
+    onFetchStaffUsers();
+  }, [onFetchDetails, onFetchStaffUsers]);
   useEffect(() => {
     let client;
     client = initiateClient();
@@ -35,6 +36,7 @@ const MenuContainer = props => {
         //Non handled message which aren't JSON.
       }
     };
+    client.onerror = error => console.log("==>", error);
     const webSocketInterval = setInterval(() => {
       client.close();
       client.onclose = () => {
@@ -73,20 +75,27 @@ const MenuContainer = props => {
   const changePasswordFormSubmit = values => {
     props.onChangePassword(values);
   };
-
+  const changeStatusHandler = cognitoSub => {
+    console.log("I m here,", cognitoSub);
+  };
   return (
     <Menu
       details={props.details}
       loading={props.loading}
+      isLoadingStaffMembers={props.isLoadingStaffMembers}
+      staffMembers={props.staffMembers}
       logout={logout}
       submit={changePasswordFormSubmit}
+      changeStatusHandler={changeStatusHandler}
     />
   );
 };
 const mapStateToProps = state => {
   return {
     details: state.menu.details,
-    loading: state.menu.loading
+    loading: state.menu.loading,
+    isLoadingStaffMembers: state.menu.isLoadingStaffMembers,
+    staffMembers: state.menu.staffMembers
   };
 };
 const mapDispatchToProps = dispatch => {
@@ -99,6 +108,9 @@ const mapDispatchToProps = dispatch => {
     },
     onChangePassword: values => {
       dispatch(changePassword(values));
+    },
+    onFetchStaffUsers: () => {
+      dispatch(staffUsers());
     }
   };
 };

@@ -76,3 +76,45 @@ export const changePassword = values => {
       .catch(error => dispatch(changePasswordFailure(error)));
   };
 };
+
+export const staffUsersSuccess = data => {
+  return {
+    type: ACTIONS.STAFF_MEMBERS_SUCCESS,
+    staffMembers: data
+  };
+};
+export const staffUsersFailure = error => {
+  return {
+    type: ACTIONS.STAFF_MEMBERS_FAILURE,
+    error
+  };
+};
+
+export const staffUserStart = () => {
+  return {
+    type: ACTIONS.STAFF_MEMBERS_START
+  };
+};
+
+export const staffUsers = () => {
+  return dispatch => {
+    dispatch(staffUserStart());
+    const config = {
+      headers: { Authorization: getCookie("idToken") }
+    };
+    axios
+      .get(
+        /*apiEndpoints.staffMembers*/ "http://localhost:3001/staff/users"
+        //  config
+      )
+      .then(data => {
+        if (data.data.statusCode === 200) {
+          const { staffMembers } = data.data;
+          dispatch(staffUsersSuccess(staffMembers));
+        }
+      })
+      .catch(error => {
+        dispatch(staffUsersFailure(error));
+      });
+  };
+};

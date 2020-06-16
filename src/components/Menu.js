@@ -15,7 +15,7 @@ const HeaderStyle = {
 };
 
 const MenuComponent = props => {
-  console.log("I am in menu child");
+  console.log("staffMembers...", props.staffMembers);
   const { details, loading } = props;
   return (
     <>
@@ -42,7 +42,11 @@ const MenuComponent = props => {
             >
               <UserList />
               <SearchBar />
-              <UsersTable />
+              <UsersTable
+                isLoadingStaffMembers={props.isLoadingStaffMembers}
+                staffMembers={props.staffMembers}
+                changeStatusHandler={props.changeStatusHandler}
+              />
             </Content>
             <Footer />
           </Layout>

@@ -1,9 +1,12 @@
 import * as ACTIONS from "../actions/actionTypes";
+import moment from "moment";
 
 const initialState = {
   error: null,
+  isLoadingStaffMembers: false,
   loading: true,
-  details: null
+  details: null,
+  staffMembers: []
 };
 
 export const menuReducer = (state = initialState, action) => {
@@ -28,6 +31,17 @@ export const menuReducer = (state = initialState, action) => {
       return { ...state, loading: false };
     case ACTIONS.CHANGE_PASSWORD_FAILURE:
       return { ...state, loading: false, error: action.error };
+    case ACTIONS.STAFF_MEMBERS_FAILURE:
+      return { ...state, isLoadingStaffMembers: false, error: action.error };
+    case ACTIONS.STAFF_MEMBERS_SUCCESS:
+      console.log("staffMembers inside reducer...", action.staffMembers);
+      return {
+        ...state,
+        isLoadingStaffMembers: false,
+        staffMembers: manipulateStaffData(action.staffMembers)
+      };
+    case ACTIONS.STAFF_MEMBERS_START:
+      return { ...state, isLoadingStaffMembers: true, error: null };
     case ACTIONS.LOGOUT_START:
     case ACTIONS.DETAILS_START:
     case ACTIONS.CHANGE_PASSWORD_START:
@@ -35,4 +49,21 @@ export const menuReducer = (state = initialState, action) => {
     default:
       return { ...state };
   }
+};
+
+const manipulateStaffData = staffMembers => {
+  if (staffMembers.length) {
+    return staffMembers.map(staff => {
+      return {
+        name: `${staff.firstName} ${staff.lastName}`,
+        email: staff.email,
+        cognitoSub: staff.cognitoSub,
+        tags: [staff.status],
+        created: moment
+          .utc(staff.created)
+          .local()
+          .format()
+      };
+    });
+  } else return [];
 };

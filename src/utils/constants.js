@@ -3,5 +3,6 @@ export const apiEndpoints = {
   login: "/admin/login",
   sessionValidity: "/admin/session",
   details: "/admin/details",
-  changePassword: "/admin/change-password"
+  changePassword: "/admin/change-password",
+  staffMembers: "/admin/fetch-staff"
 };
