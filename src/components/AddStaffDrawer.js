@@ -6,9 +6,6 @@ const { Text } = Typography;
 const StyledForm = styled(Form)`
   margin-top: 2rem;
 `;
-const StyledTextbox = styled(Input.Password)`
-  margin-top: -1.5rem;
-`;
 const inputBoxStyles = {
   borderRadius: ".5rem"
 };
@@ -17,12 +14,12 @@ const buttonStyles = {
   borderRadius: ".5rem",
   marginTop: "2rem"
 };
-const SettingsDrawer = props => {
+const AddStaffDrawer = props => {
   return (
     <>
       <div className="site-drawer-render-in-current-wrapper">
         <Drawer
-          title="Change Password"
+          title="Add new staff member"
           placement={"right"}
           closable={true}
           onClose={props.close}
@@ -33,58 +30,56 @@ const SettingsDrawer = props => {
           <StyledForm onFinish={values => props.submit(values)}>
             <Row>
               <Col lg={8} md={8} xs={8} sm={8}>
-                <Text strong>Old Password</Text>
+                <Text strong>Email</Text>
               </Col>
               <Col lg={16} md={16} xs={24} sm={24}>
                 <Form.Item
-                  name="oldPassword"
+                  name="email"
                   rules={[
                     {
                       required: true,
-                      message: "Please input your password"
+                      type: "email",
+                      message: "Please input an email."
                     }
                   ]}
                 >
-                  <StyledTextbox
-                    style={{ ...inputBoxStyles }}
-                    visibilityToggle={false}
-                  />
+                  <Input style={{ ...inputBoxStyles }} />
                 </Form.Item>
               </Col>
             </Row>
             <Row>
               <Col lg={8} md={8} xs={8} sm={8}>
-                <Text strong>New Password</Text>
+                <Text strong>First Name</Text>
               </Col>
               <Col lg={16} md={16} xs={24} sm={24}>
                 <Form.Item
-                  name="newPassword"
+                  name="firstName"
                   rules={[
                     {
                       required: true,
-                      message: "Please input your password"
+                      message: "Please input first name"
                     }
                   ]}
                 >
-                  <StyledTextbox style={{ ...inputBoxStyles }} />
+                  <Input style={{ ...inputBoxStyles }} />
                 </Form.Item>
               </Col>
             </Row>
             <Row>
               <Col lg={8} md={8} xs={16} sm={16}>
-                <Text strong>Confirm New Password</Text>
+                <Text strong>Second Name</Text>
               </Col>
               <Col lg={16} md={16} xs={24} sm={24}>
                 <Form.Item
-                  name="confirmNewPassword"
+                  name="lastName"
                   rules={[
                     {
                       required: true,
-                      message: "Please input your password"
+                      message: "Please input second name"
                     }
                   ]}
                 >
-                  <StyledTextbox style={{ ...inputBoxStyles }} />
+                  <Input style={{ ...inputBoxStyles }} />
                 </Form.Item>
               </Col>
             </Row>
@@ -97,7 +92,7 @@ const SettingsDrawer = props => {
                     style={{ ...buttonStyles }}
                     block
                   >
-                    Submit
+                    Enroll
                   </Button>
                 </Form.Item>
               </Col>
@@ -109,4 +104,4 @@ const SettingsDrawer = props => {
   );
 };
 
-export default SettingsDrawer;
+export default AddStaffDrawer;

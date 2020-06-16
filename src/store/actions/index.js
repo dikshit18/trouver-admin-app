@@ -4,5 +4,6 @@ export {
   changePassword,
   staffUsers,
   disableStaff,
-  enableStaff
+  enableStaff,
+  addStaff
 } from "./Menu";

@@ -5,7 +5,8 @@ import {
   changePassword,
   staffUsers,
   disableStaff,
-  enableStaff
+  enableStaff,
+  addStaff
 } from "../store/actions/index";
 import Menu from "../components/Menu";
 import { logout } from "../store/actions";
@@ -22,7 +23,8 @@ const MenuContainer = props => {
     onFetchStaffUsers,
     onLogout,
     onStaffDisable,
-    onStaffEnable
+    onStaffEnable,
+    onAddStaff
   } = props;
   useEffect(() => {
     onFetchDetails();
@@ -88,9 +90,12 @@ const MenuContainer = props => {
     props.onChangePassword(values);
   };
   const changeStatusHandler = (cognitoSub, status) => {
-    console.log("I m here,", cognitoSub);
     if (status === "confirmed") onStaffDisable(cognitoSub);
     else onStaffEnable(cognitoSub);
+  };
+  const addNewStaffMembers = values => {
+    console.log("Values are...", values);
+    onAddStaff(values);
   };
   return (
     <Menu
@@ -101,6 +106,7 @@ const MenuContainer = props => {
       logout={logout}
       submit={changePasswordFormSubmit}
       changeStatusHandler={changeStatusHandler}
+      addStaffSubmit={addNewStaffMembers}
     />
   );
 };
@@ -131,6 +137,9 @@ const mapDispatchToProps = dispatch => {
     },
     onStaffEnable: identityId => {
       dispatch(enableStaff(identityId));
+    },
+    onAddStaff: values => {
+      dispatch(addStaff(values));
     }
   };
 };

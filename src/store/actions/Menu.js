@@ -207,3 +207,46 @@ export const enableStaff = identityId => {
       });
   };
 };
+
+export const addStaffSuccess = () => {
+  return {
+    type: ACTIONS.ADD_STAFF_SUCCESS
+  };
+};
+export const addStaffFailure = error => {
+  return {
+    type: ACTIONS.ADD_STAFF_FAILURE,
+    error
+  };
+};
+
+export const addStaffStart = () => {
+  return {
+    type: ACTIONS.ADD_STAFF_START
+  };
+};
+
+export const addStaff = ({ firstName, lastName, email }) => {
+  return (dispatch, getState) => {
+    dispatch(addStaffStart());
+    const config = {
+      headers: { Authorization: getCookie("idToken") }
+    };
+    const payload = { firstName, lastName, email };
+    axios
+      .post(
+        /*apiEndpoints.staffMembers*/ `http://localhost:3001/staff/signup`,
+        payload
+        //  config
+      )
+      .then(data => {
+        if (data.data.statusCode === 200) {
+          dispatch(addStaffSuccess());
+          //dispatch(staffUsers());
+        }
+      })
+      .catch(error => {
+        dispatch(addStaffFailure(error));
+      });
+  };
+};

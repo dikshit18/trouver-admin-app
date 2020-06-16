@@ -41,7 +41,7 @@ const MenuComponent = props => {
               }}
             >
               <UserList />
-              <SearchBar />
+              <SearchBar addStaffSubmit={props.addStaffSubmit} />
               <UsersTable
                 isLoadingStaffMembers={props.isLoadingStaffMembers}
                 staffMembers={props.staffMembers}

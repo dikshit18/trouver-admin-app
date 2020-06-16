@@ -6,5 +6,6 @@ export const apiEndpoints = {
   changePassword: "/admin/change-password",
   staffMembers: "/admin/fetch-staff",
   disableStaffMember: "/admin/disable-staff",
-  enableStaffMember: "/admin/enable-staff"
+  enableStaffMember: "/admin/enable-staff",
+  addStaffMember: "/admin/add-staff"
 };
