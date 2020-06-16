@@ -4,5 +4,7 @@ export const apiEndpoints = {
   sessionValidity: "/admin/session",
   details: "/admin/details",
   changePassword: "/admin/change-password",
-  staffMembers: "/admin/fetch-staff"
+  staffMembers: "/admin/fetch-staff",
+  disableStaffMember: "/admin/disable-staff",
+  enableStaffMember: "/admin/enable-staff"
 };

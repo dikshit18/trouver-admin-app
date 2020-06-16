@@ -1,2 +1,8 @@
 export { login, logout } from "./Auth";
-export { details, changePassword, staffUsers } from "./Menu";
+export {
+  details,
+  changePassword,
+  staffUsers,
+  disableStaff,
+  enableStaff
+} from "./Menu";

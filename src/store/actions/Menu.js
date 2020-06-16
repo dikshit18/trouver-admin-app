@@ -118,3 +118,92 @@ export const staffUsers = () => {
       });
   };
 };
+
+export const disableStaffSuccess = (staffMembers, identityId) => {
+  console.log("Disabling...", staffMembers, identityId);
+  return {
+    type: ACTIONS.DISABLE_STAFF_SUCCESS,
+    staffMembers,
+    identityId
+  };
+};
+export const disableStaffFailure = error => {
+  return {
+    type: ACTIONS.DISABLE_STAFF_FAILURE,
+    error
+  };
+};
+
+export const disableStaffStart = () => {
+  return {
+    type: ACTIONS.DISABLE_STAFF_START
+  };
+};
+
+export const disableStaff = identityId => {
+  return (dispatch, getState) => {
+    dispatch(disableStaffStart());
+    const config = {
+      headers: { Authorization: getCookie("idToken") }
+    };
+    axios
+      .get(
+        /*apiEndpoints.staffMembers*/ `http://localhost:3001/staff/disable/${identityId} `
+        //  config
+      )
+      .then(data => {
+        if (data.data.statusCode === 200) {
+          const { menu } = getState();
+          const { staffMembers } = menu;
+          dispatch(disableStaffSuccess(staffMembers, identityId));
+        }
+      })
+      .catch(error => {
+        dispatch(disableStaffFailure(error));
+      });
+  };
+};
+
+export const enableStaffSuccess = (staffMembers, identityId) => {
+  return {
+    type: ACTIONS.ENABLE_STAFF_SUCCESS,
+    staffMembers,
+    identityId
+  };
+};
+export const enableStaffFailure = error => {
+  return {
+    type: ACTIONS.ENABLE_STAFF_FAILURE,
+    error
+  };
+};
+
+export const enableStaffStart = () => {
+  return {
+    type: ACTIONS.ENABLE_STAFF_START
+  };
+};
+
+export const enableStaff = identityId => {
+  return (dispatch, getState) => {
+    dispatch(enableStaffStart());
+    const config = {
+      headers: { Authorization: getCookie("idToken") }
+    };
+    axios
+      .get(
+        /*apiEndpoints.staffMembers*/ `http://localhost:3001/staff/enable/${identityId} `
+        //  config
+      )
+      .then(data => {
+        if (data.data.statusCode === 200) {
+          const { menu } = getState();
+          const { staffMembers } = menu;
+          dispatch(enableStaffSuccess(staffMembers, identityId));
+        }
+      })
+      .catch(error => {
+        dispatch(enableStaffFailure(error));
+      });
+  };
+};

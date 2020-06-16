@@ -70,7 +70,11 @@ const usersTable = props => {
             else actionItem = "Enable";
             return (
               <Space size="middle">
-                <a onClick={() => props.changeStatusHandler(record.cognitoSub)}>
+                <a
+                  onClick={() =>
+                    props.changeStatusHandler(record.cognitoSub, tag)
+                  }
+                >
                   {actionItem}
                 </a>
               </Space>

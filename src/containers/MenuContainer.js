@@ -1,6 +1,12 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { details, changePassword, staffUsers } from "../store/actions/index";
+import {
+  details,
+  changePassword,
+  staffUsers,
+  disableStaff,
+  enableStaff
+} from "../store/actions/index";
 import Menu from "../components/Menu";
 import { logout } from "../store/actions";
 import SessionValidityHOC from "../hoc/SessionValidity";
@@ -11,7 +17,13 @@ import {
 import { getCookie } from "../utils/cookies";
 
 const MenuContainer = props => {
-  const { onFetchDetails, onFetchStaffUsers, onLogout } = props;
+  const {
+    onFetchDetails,
+    onFetchStaffUsers,
+    onLogout,
+    onStaffDisable,
+    onStaffEnable
+  } = props;
   useEffect(() => {
     onFetchDetails();
     onFetchStaffUsers();
@@ -75,8 +87,10 @@ const MenuContainer = props => {
   const changePasswordFormSubmit = values => {
     props.onChangePassword(values);
   };
-  const changeStatusHandler = cognitoSub => {
+  const changeStatusHandler = (cognitoSub, status) => {
     console.log("I m here,", cognitoSub);
+    if (status === "confirmed") onStaffDisable(cognitoSub);
+    else onStaffEnable(cognitoSub);
   };
   return (
     <Menu
@@ -111,6 +125,12 @@ const mapDispatchToProps = dispatch => {
     },
     onFetchStaffUsers: () => {
       dispatch(staffUsers());
+    },
+    onStaffDisable: identityId => {
+      dispatch(disableStaff(identityId));
+    },
+    onStaffEnable: identityId => {
+      dispatch(enableStaff(identityId));
     }
   };
 };
