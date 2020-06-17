@@ -29,7 +29,8 @@ export const menuReducer = (state = initialState, action) => {
       return {};
     case ACTIONS.CHANGE_PASSWORD_SUCCESS:
     case ACTIONS.ADD_STAFF_SUCCESS:
-      return { ...state, loading: false };
+      console.log("I am in staff dsuccess", action);
+      return { ...state, loading: false, error: null };
     case ACTIONS.CHANGE_PASSWORD_FAILURE:
     case ACTIONS.ADD_STAFF_FAILURE:
       return { ...state, loading: false, error: action.error };

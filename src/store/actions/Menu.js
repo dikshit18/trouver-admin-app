@@ -240,9 +240,9 @@ export const addStaff = ({ firstName, lastName, email }) => {
         //  config
       )
       .then(data => {
-        if (data.data.statusCode === 200) {
+        if (data.data.statusCode === 201) {
           dispatch(addStaffSuccess());
-          //dispatch(staffUsers());
+          dispatch(staffUsers());
         }
       })
       .catch(error => {
