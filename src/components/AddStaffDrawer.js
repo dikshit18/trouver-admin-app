@@ -43,7 +43,7 @@ const AddStaffDrawer = props => {
                     }
                   ]}
                 >
-                  <Input style={{ ...inputBoxStyles }} />
+                  <Input style={{ ...inputBoxStyles }} placeholder="Email" />
                 </Form.Item>
               </Col>
             </Row>
@@ -61,7 +61,10 @@ const AddStaffDrawer = props => {
                     }
                   ]}
                 >
-                  <Input style={{ ...inputBoxStyles }} />
+                  <Input
+                    style={{ ...inputBoxStyles }}
+                    placeholder="First Name"
+                  />
                 </Form.Item>
               </Col>
             </Row>
@@ -79,7 +82,10 @@ const AddStaffDrawer = props => {
                     }
                   ]}
                 >
-                  <Input style={{ ...inputBoxStyles }} />
+                  <Input
+                    style={{ ...inputBoxStyles }}
+                    placeholder="Second Name"
+                  />
                 </Form.Item>
               </Col>
             </Row>
