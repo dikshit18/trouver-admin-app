@@ -1,5 +1,14 @@
-import React from "react";
-import { Drawer, Form, Typography, Col, Row, Input, Button } from "antd";
+import React, { useState } from "react";
+import {
+  Drawer,
+  Form,
+  Typography,
+  Col,
+  Row,
+  Input,
+  Button,
+  TreeSelect
+} from "antd";
 import "antd/dist/antd.css";
 import styled from "styled-components";
 const { Text } = Typography;
@@ -15,6 +24,27 @@ const buttonStyles = {
   marginTop: "2rem"
 };
 const AddStaffDrawer = props => {
+  const [permissionValue, setPermissionValue] = useState(undefined);
+
+  const formSubmitHandler = values => {
+    values["permissionSet"] = permissionValue;
+    props.submit(values);
+  };
+  const onChangeHandler = value => {
+    console.log("onChange ", value);
+    setPermissionValue(value);
+  };
+  const treeProps = {
+    treeData: props.permissionSets,
+    value: permissionValue,
+    onChange: onChangeHandler,
+    treeCheckable: true,
+    //showCheckedStrategy: SHOW_PARENT,
+    placeholder: "Please select",
+    style: {
+      width: "100%"
+    }
+  };
   return (
     <>
       <div className="site-drawer-render-in-current-wrapper">
@@ -27,7 +57,7 @@ const AddStaffDrawer = props => {
           key={"right"}
           width={"402"}
         >
-          <StyledForm onFinish={values => props.submit(values)}>
+          <StyledForm onFinish={formSubmitHandler}>
             <Row>
               <Col lg={8} md={8} xs={8} sm={8}>
                 <Text strong>Email</Text>
@@ -86,6 +116,24 @@ const AddStaffDrawer = props => {
                     style={{ ...inputBoxStyles }}
                     placeholder="Second Name"
                   />
+                </Form.Item>
+              </Col>
+            </Row>
+            <Row>
+              <Col lg={8} md={8} xs={16} sm={16}>
+                <Text strong>Permissions</Text>
+              </Col>
+              <Col lg={16} md={16} xs={24} sm={24}>
+                <Form.Item
+                  name="pemissions"
+                  // rules={[
+                  //   {
+                  //     required: true,
+                  //     message: "Please select permissions"
+                  //   }
+                  // ]}
+                >
+                  <TreeSelect {...treeProps} />;
                 </Form.Item>
               </Col>
             </Row>

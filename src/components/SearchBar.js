@@ -19,6 +19,7 @@ const SearchBar = props => {
   };
   const onClickHandler = () => {
     updateDrawerMode(!drawerMode);
+    props.fetchPermissionSets();
   };
 
   return (
@@ -43,6 +44,7 @@ const SearchBar = props => {
             visible={drawerMode}
             close={closeDrawer}
             submit={props.addStaffSubmit}
+            permissionSets={props.permissionSets}
           />
         </Col>
       </Row>

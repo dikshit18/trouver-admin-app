@@ -6,7 +6,8 @@ import {
   staffUsers,
   disableStaff,
   enableStaff,
-  addStaff
+  addStaff,
+  fetchPermissionSets
 } from "../store/actions/index";
 import Menu from "../components/Menu";
 import { logout } from "../store/actions";
@@ -24,7 +25,9 @@ const MenuContainer = props => {
     onLogout,
     onStaffDisable,
     onStaffEnable,
-    onAddStaff
+    onAddStaff,
+    permissionSets,
+    onFetchPermissionSets
   } = props;
   useEffect(() => {
     onFetchDetails();
@@ -97,6 +100,9 @@ const MenuContainer = props => {
     console.log("Values are...", values);
     onAddStaff(values);
   };
+  const fetchPermissionSets = () => {
+    onFetchPermissionSets();
+  };
   return (
     <Menu
       details={props.details}
@@ -107,6 +113,8 @@ const MenuContainer = props => {
       submit={changePasswordFormSubmit}
       changeStatusHandler={changeStatusHandler}
       addStaffSubmit={addNewStaffMembers}
+      permissionSets={permissionSets}
+      fetchPermissionSets={fetchPermissionSets}
     />
   );
 };
@@ -115,7 +123,8 @@ const mapStateToProps = state => {
     details: state.menu.details,
     loading: state.menu.loading,
     isLoadingStaffMembers: state.menu.isLoadingStaffMembers,
-    staffMembers: state.menu.staffMembers
+    staffMembers: state.menu.staffMembers,
+    permissionSets: state.menu.permissionSets
   };
 };
 const mapDispatchToProps = dispatch => {
@@ -140,6 +149,9 @@ const mapDispatchToProps = dispatch => {
     },
     onAddStaff: values => {
       dispatch(addStaff(values));
+    },
+    onFetchPermissionSets: () => {
+      dispatch(fetchPermissionSets());
     }
   };
 };

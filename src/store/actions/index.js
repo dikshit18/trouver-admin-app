@@ -5,5 +5,6 @@ export {
   staffUsers,
   disableStaff,
   enableStaff,
-  addStaff
+  addStaff,
+  fetchPermissionSets
 } from "./Menu";

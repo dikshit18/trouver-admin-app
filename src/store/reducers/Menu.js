@@ -6,7 +6,8 @@ const initialState = {
   isLoadingStaffMembers: false,
   loading: true,
   details: null,
-  staffMembers: []
+  staffMembers: [],
+  permissionSets: []
 };
 
 export const menuReducer = (state = initialState, action) => {
@@ -37,6 +38,7 @@ export const menuReducer = (state = initialState, action) => {
     case ACTIONS.STAFF_MEMBERS_FAILURE:
     case ACTIONS.DISABLE_STAFF_FAILURE:
     case ACTIONS.ENABLE_STAFF_FAILURE:
+    case ACTIONS.PERMISSION_LOOKUP_FAILURE:
       return { ...state, isLoadingStaffMembers: false, error: action.error };
     case ACTIONS.STAFF_MEMBERS_SUCCESS:
       return {
@@ -64,6 +66,13 @@ export const menuReducer = (state = initialState, action) => {
           "confirmed"
         )
       };
+    case ACTIONS.PERMISSION_LOOKUP_SUCCESS:
+      return {
+        ...state,
+        permissionSets: mapPermissionSets(action.permissionSets)
+      };
+    case ACTIONS.PERMISSION_LOOKUP_START:
+      return { ...state };
     case ACTIONS.STAFF_MEMBERS_START:
     case ACTIONS.DISABLE_STAFF_START:
     case ACTIONS.ENABLE_STAFF_START:
@@ -104,4 +113,14 @@ const statusUpdateInStaff = (staffMembers, identityId, status) => {
   });
   console.log("Staff updated...", staff);
   return staff;
+};
+
+const mapPermissionSets = permissionSets => {
+  return permissionSets.map(set => {
+    return {
+      key: set.id,
+      title: set.code,
+      value: set.code
+    };
+  });
 };

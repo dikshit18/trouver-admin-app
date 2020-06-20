@@ -41,7 +41,11 @@ const MenuComponent = props => {
               }}
             >
               <UserList />
-              <SearchBar addStaffSubmit={props.addStaffSubmit} />
+              <SearchBar
+                addStaffSubmit={props.addStaffSubmit}
+                permissionSets={props.permissionSets}
+                fetchPermissionSets={props.fetchPermissionSets}
+              />
               <UsersTable
                 isLoadingStaffMembers={props.isLoadingStaffMembers}
                 staffMembers={props.staffMembers}

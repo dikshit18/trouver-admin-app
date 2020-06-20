@@ -4,8 +4,9 @@ export const apiEndpoints = {
   sessionValidity: "/admin/session",
   details: "/admin/details",
   changePassword: "/admin/change-password",
-  staffMembers: "/admin/fetch-staff",
-  disableStaffMember: "/admin/disable-staff",
-  enableStaffMember: "/admin/enable-staff",
-  addStaffMember: "/admin/add-staff"
+  staffMembers: "/shared/fetch-staff",
+  disableStaffMember: "/shared/disable-staff",
+  enableStaffMember: "/shared/enable-staff",
+  addStaffMember: "/shared/add-staff",
+  permissionLookup: "shared/permission-lookup"
 };

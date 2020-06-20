@@ -250,3 +250,44 @@ export const addStaff = ({ firstName, lastName, email }) => {
       });
   };
 };
+
+export const permissionLookUpStart = () => {
+  return {
+    type: ACTIONS.PERMISSION_LOOKUP_START
+  };
+};
+
+export const permissionLookUpSuccess = permissionSets => {
+  return {
+    type: ACTIONS.PERMISSION_LOOKUP_SUCCESS,
+    permissionSets
+  };
+};
+export const permissionLookUpFailure = error => {
+  return {
+    type: ACTIONS.PERMISSION_LOOKUP_FAILURE,
+    error
+  };
+};
+
+export const fetchPermissionSets = () => {
+  return (dispatch, getState) => {
+    dispatch(permissionLookUpStart());
+    const config = {
+      headers: { Authorization: getCookie("idToken") }
+    };
+    axios
+      .get(
+        /*apiEndpoints.staffMembers*/ `http://localhost:3001/shared/permission/permission/all`
+      )
+      .then(data => {
+        if (data.data.statusCode === 200) {
+          const { permissionSets } = data.data;
+          dispatch(permissionLookUpSuccess(permissionSets));
+        }
+      })
+      .catch(error => {
+        dispatch(permissionLookUpFailure(error));
+      });
+  };
+};
